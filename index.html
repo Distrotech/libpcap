@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Libpcap by Distrotech</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Libpcap</h1>
+          <h2>git://bpf.tcpdump.org/libpcap </h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/Distrotech/libpcap/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/Distrotech/libpcap/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/Distrotech/libpcap" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <p>@(#) $Header: /tcpdump/master/libpcap/README,v 1.34 2008-12-14 19:44:14 guy Exp $ (LBL)</p>
+
+<p>LIBPCAP 1.x.y</p>
+
+<p><a href="http://www.tcpdump.org">www.tcpdump.org</a></p>
+
+<p>Please send inquiries/comments/reports to:
+    <a href="mailto:tcpdump-workers@lists.tcpdump.org">tcpdump-workers@lists.tcpdump.org</a></p>
+
+<p>Anonymous Git is available via:
+    git clone git://bpf.tcpdump.org/libpcap</p>
+
+<p>Version 1.x.y of LIBPCAP can be retrieved with the CVS tag "libpcap_1_{x}rel{y}":
+    cvs -d :pserver:<a href="mailto:tcpdump@cvs.tcpdump.org">tcpdump@cvs.tcpdump.org</a>:/tcpdump/master checkout -r libpcap_1_{x}rel{y} libpcap</p>
+
+<p>Please submit patches by forking the branch on GitHub at</p>
+
+<pre><code>http://github.com/the-tcpdump-group/libpcap/tree/master
+</code></pre>
+
+<p>and issuing a pull request.</p>
+
+<p>formerly from   Lawrence Berkeley National Laboratory
+        Network Research Group <a href="mailto:libpcap@ee.lbl.gov">libpcap@ee.lbl.gov</a>
+        <a>ftp://ftp.ee.lbl.gov/libpcap.tar.Z</a> (0.4)</p>
+
+<p>This directory contains source code for libpcap, a system-independent
+interface for user-level packet capture.  libpcap provides a portable
+framework for low-level network monitoring.  Applications include
+network statistics collection, security monitoring, network debugging,
+etc.  Since almost every system vendor provides a different interface
+for packet capture, and since we've developed several tools that
+require this functionality, we've created this system-independent API
+to ease in porting and to alleviate the need for several
+system-dependent packet capture modules in each application.</p>
+
+<p>For some platforms there are README.{system} files that discuss issues
+with the OS's interface for packet capture on those platforms, such as
+how to enable support for that interface in the OS, if it's not built in
+by default.</p>
+
+<p>The libpcap interface supports a filtering mechanism based on the
+architecture in the BSD packet filter.  BPF is described in the 1993
+Winter Usenix paper ``The BSD Packet Filter: A New Architecture for
+User-level Packet Capture''.  A compressed PostScript version can be
+found at</p>
+
+<pre><code>ftp://ftp.ee.lbl.gov/papers/bpf-usenix93.ps.Z
+</code></pre>
+
+<p>or</p>
+
+<pre><code>http://www.tcpdump.org/papers/bpf-usenix93.ps.Z
+</code></pre>
+
+<p>and a gzipped version can be found at</p>
+
+<pre><code>http://www.tcpdump.org/papers/bpf-usenix93.ps.gz
+</code></pre>
+
+<p>A PDF version can be found at</p>
+
+<pre><code>http://www.tcpdump.org/papers/bpf-usenix93.pdf
+</code></pre>
+
+<p>Although most packet capture interfaces support in-kernel filtering,
+libpcap utilizes in-kernel filtering only for the BPF interface.
+On systems that don't have BPF, all packets are read into user-space
+and the BPF filters are evaluated in the libpcap library, incurring
+added overhead (especially, for selective filters).  Ideally, libpcap
+would translate BPF filters into a filter program that is compatible
+with the underlying kernel subsystem, but this is not yet implemented.</p>
+
+<p>BPF is standard in 4.4BSD, BSD/OS, NetBSD, FreeBSD, OpenBSD, DragonFly
+BSD, and Mac OS X; an older, modified and undocumented version is
+standard in AIX.  {DEC OSF/1, Digital UNIX, Tru64 UNIX} uses the
+packetfilter interface but has been extended to accept BPF filters
+(which libpcap utilizes).  Also, you can add BPF filter support to
+Ultrix using the kernel source and/or object patches available in:</p>
+
+<pre><code>http://www.tcpdump.org/other/bpfext42.tar.Z
+</code></pre>
+
+<p>Linux, in the 2.2 kernel and later kernels, has a "Socket Filter"
+mechanism that accepts BPF filters; see the README.linux file for
+information on configuring that option.</p>
+
+<p>Note to Linux distributions and *BSD systems that include libpcap:</p>
+
+<p>There's now a rule to make a shared library, which should work on Linux 
+and *BSD, among other platforms.</p>
+
+<p>It sets the soname of the library to "libpcap.so.1"; this is what it 
+should be, <em>NOT</em> libpcap.so.1.x or libpcap.so.1.x.y or something such as 
+that.</p>
+
+<p>We've been maintaining binary compatibility between libpcap releases for 
+quite a while; there's no reason to tie a binary linked with libpcap to 
+a particular release of libpcap.</p>
+
+<p>Problems, bugs, questions, desirable enhancements, etc. should be sent
+to the address "<a href="mailto:tcpdump-workers@lists.tcpdump.org">tcpdump-workers@lists.tcpdump.org</a>".  Bugs, support
+requests, and feature requests may also be submitted on the GitHub issue
+tracker for libpcap at</p>
+
+<pre><code>https://github.com/the-tcpdump-group/libpcap/issues
+</code></pre>
+
+<p>Source code contributions, etc. should be sent to the email address
+above or submitted by forking the branch on GitHub at</p>
+
+<pre><code>http://github.com/the-tcpdump-group/libpcap/tree/master
+</code></pre>
+
+<p>and issuing a pull request.</p>
+
+<p>Current versions can be found at <a href="http://www.tcpdump.org">www.tcpdump.org</a>.</p>
+
+<ul>
+<li>The TCPdump team</li>
+</ul>
+        </section>
+
+        <footer>
+          Libpcap is maintained by <a href="https://github.com/Distrotech">Distrotech</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
